@@ -33,23 +33,23 @@ class ShareController extends Controller
         if($arrangeBy == 'Date')
         {
             if(!$order)
-                return Image::whereIn('id', $imageIds)->orderby('created_at')->get();
+                return Image::whereIn('id', $imageIds)->where('inTrash', 0)->orderby('created_at')->get();
             else
-                return Image::whereIn('id', $imageIds)->orderby('created_at', 'desc')->get();
+                return Image::whereIn('id', $imageIds)->where('inTrash', 0)->orderby('created_at', 'desc')->get();
         }
         else if($arrangeBy == 'A-Z')
         {
             if(!$order)
-                return Image::whereIn('id', $imageIds)->orderby('name')->get();
+                return Image::whereIn('id', $imageIds)->where('inTrash', 0)->orderby('name')->get();
             else
-                return Image::whereIn('id', $imageIds)->orderby('name', 'desc')->get();
+                return Image::whereIn('id', $imageIds)->where('inTrash', 0)->orderby('name', 'desc')->get();
         }
         else if($arrangeBy == 'Size')
         {
             if(!$order)
-                return Image::whereIn('id', $imageIds)->orderby('size')->get();
+                return Image::whereIn('id', $imageIds)->where('inTrash', 0)->orderby('size')->get();
             else
-                return Image::whereIn('id', $imageIds)->get();
+                return Image::whereIn('id', $imageIds)->where('inTrash', 0)->get();
         }
     }
 
