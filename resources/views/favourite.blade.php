@@ -218,7 +218,10 @@
         },
         error: function(res){
           toastr.error('Error');
-          $('#imageError' + id).html(res.responseJSON.message);
+          if(res.responseJSON.message)
+            $('#imageError' + id).html(res.responseJSON.message);
+          else if(res.status == 413)
+            $('#imageError' + id).html('Image size can not be above 1 MB');
         }
       });
     }
