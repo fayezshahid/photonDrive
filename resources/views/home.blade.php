@@ -221,7 +221,6 @@
       if(flag == 0 && id != ''){
           $('#chooseImg' + id).html('<input type="hidden" name="hiddenToken" value="1">');
       }
-      console.log(flag);
       var form = document.getElementById('form' + id);
       var method = 'POST';
       var u = 'image'
@@ -248,7 +247,7 @@
           arrangeBy(arrange, order);
         },
         error: function(res){
-          toastr.error('Error');
+          toastr.error('Error');console.log(res);
           $('#imageError' + id).html(res.responseJSON.message);
         }
       });

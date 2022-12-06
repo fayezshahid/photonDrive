@@ -18,7 +18,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|mimes:png,jpg,jpeg|max:100',
+            'image' => 'required|mimes:png,jpg,jpeg',
             'name' => 'nullable|string|max:255'
         ]);
 
@@ -46,7 +46,7 @@ class ImageController extends Controller
         if($request->hiddenToken == 0)
         {
             $request->validate([
-                'image' => 'required|mimes:png,jpg,jpeg|max:100',
+                'image' => 'required|mimes:png,jpg,jpeg',
             ]);
 
             $data['size'] = $request->image->getsize();
