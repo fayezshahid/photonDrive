@@ -17,6 +17,11 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => 'required|mimes:png,jpg,jpeg|max:100',
+            'name' => 'nullable|string|max:255'
+        ]);
+
         $data['name'] = $request->name;
         $data['size'] = $request->image->getsize();
         $data['user_id'] = auth()->user()->id;
@@ -32,10 +37,19 @@ class ImageController extends Controller
 
     public function update(Request $request, $imageId)
     {
+        $request->validate([
+            'name' => 'nullable|string|max:255',
+            // 'image' => 'required|mimes:png,jpg,jpeg|max:100',
+        ]);
+
         $data['name'] = $request->name;
 
         if($request->hiddenToken == 0)
         {
+            $request->validate([
+                'image' => 'required|mimes:png,jpg,jpeg|max:100',
+            ]);
+
             $data['size'] = $request->image->getsize();
 
             $image = Image::find($imageId);

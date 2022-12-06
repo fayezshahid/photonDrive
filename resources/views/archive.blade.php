@@ -127,10 +127,10 @@
                             <form id="form${data[i].id}">
                               @csrf
                               @method('PUT')
+                              <div class="text-danger mb-1" id="imageError${data[i].id}"></div>
                               <div class="form-group" style="margin-bottom: 15px; display:none;" id="chooseImg${data[i].id}">
                                   <label for="">Image</label>
                                   <input type="file" id="image${data[i].id}" class="form-control" name="image" onchange="displayImage(${data[i].id}, this)">
-                                  <div class="text-danger" id="imageError${data[i].id}"></div>
                               </div>
                               <div class="d-flex justify-content-between" id="imageDiv${data[i].id}" style="margin-bottom: 1.5rem;">
                                   <img height="450" id="img${data[i].id}" src="https://drive.google.com/uc?export=view&id=${data[i].path}" alt="">
@@ -157,7 +157,6 @@
     var flag = 0;
 
     function displayImage(id, input) {
-      flag = 0;
       if (input.files && input.files[0]) {
 
         $('#chooseImg' + id).hide();
@@ -188,51 +187,40 @@
     }
 
     function upload(id){
-      var f = 1;
-                
-      if(!$('#image' + id).val() && flag == 1){
-          f = 0;
-          $('#imageError' + id).html('Image is required');
+      if(flag == 0 && id != ''){
+          $('#chooseImg' + id).html('<input type="hidden" name="hiddenToken" value="1">');
       }
-      else{
-          $('#imageError' + id).html('');
-      }
-      
-      if(f){
-        if(flag == 0 && id != ''){
-            $('#chooseImg' + id).html('<input type="hidden" name="hiddenToken" value="1">');
-        }
 
-        $('#modal' + id).modal('hide');
-
-        var form = document.getElementById('form' + id);
-        var method = 'POST';
-        var u = 'image'
-        if(id != ''){
-          u = 'image/' + id;
-        }
-          
-        $.ajax({
-          url: u,
-          type: "POST",
-          processData: false,
-          contentType: false,
-          data:  new FormData(form),
-          success: function(){
-            closeImage(id);
-            flag = 0;
-            $('#name' + id).val('');
-            if(id)
-              toastr.success('Image Edited');
-            else
-              toastr.success('Image Uploaded');
-            arrangeBy(arrange, order);
-          },
-          error: function(){
-            toastr.error('Error');
-          }
-        });
+      var form = document.getElementById('form' + id);
+      var method = 'POST';
+      var u = 'image'
+      if(id != ''){
+        u = 'image/' + id;
       }
+      $('#imageError' + id).html('');
+        
+      $.ajax({
+        url: u,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data:  new FormData(form),
+        success: function(){
+          $('#modal' + id).modal('hide');
+          closeImage(id);
+          flag = 0;
+          $('#name' + id).val('');
+          if(id)
+            toastr.success('Image Edited');
+          else
+            toastr.success('Image Uploaded');
+          arrangeBy(arrange, order);
+        },
+        error: function(res){
+          toastr.error('Error');
+          $('#imageError' + id).html(res.responseJSON.message);
+        }
+      });
     }
 
     function moveToTrash(id){
