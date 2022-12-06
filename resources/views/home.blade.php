@@ -98,6 +98,10 @@
 
     $(document).ready(arrangeBy('Date', 1));
 
+    $('body').on('hidden.bs.modal', '.modal', function () {
+      $('#wait').removeClass('modal-backdrop show');
+    });
+
     function arrangeBy(a, b){
       arrange = a;
       order = b;

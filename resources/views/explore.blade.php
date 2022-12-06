@@ -78,6 +78,10 @@
         $('#datepicker2').datepicker({ dateFormat: 'yy-mm-dd' });
     });
 
+    $('body').on('hidden.bs.modal', '.modal', function () {
+      $('#wait').removeClass('modal-backdrop show');
+    });
+
     function displayImages(data){
         $('#row').html('');
         for(var i=0; i<data.length; i++){
