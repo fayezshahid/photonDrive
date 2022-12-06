@@ -39,7 +39,6 @@ class ImageController extends Controller
     {
         $request->validate([
             'name' => 'nullable|string|max:255',
-            // 'image' => 'required|mimes:png,jpg,jpeg|max:100',
         ]);
 
         $data['name'] = $request->name;
