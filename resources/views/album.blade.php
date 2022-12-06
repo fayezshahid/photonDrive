@@ -408,7 +408,7 @@
             },
             error: function(res){
                 toastr.error('Error');
-                if(res.responseJSON.message)
+                if(res.responseJSON)
                     $('#imageError' + id).html(res.responseJSON.message);
                 else if(res.status == 413)
                     $('#imageError' + id).html('Image size can not be above 1 MB');
