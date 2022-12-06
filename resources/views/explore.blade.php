@@ -243,7 +243,7 @@
             toastr.success('Image Edited');
           else
             toastr.success('Image Uploaded');
-          searchImage(arrange, order);
+          searchImage(exploreBy);
         },
         error: function(res){
           toastr.error('Error');
