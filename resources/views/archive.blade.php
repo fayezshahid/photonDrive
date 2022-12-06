@@ -190,7 +190,6 @@
       if(flag == 0 && id != ''){
           $('#chooseImg' + id).html('<input type="hidden" name="hiddenToken" value="1">');
       }
-
       var form = document.getElementById('form' + id);
       var method = 'POST';
       var u = 'image'
@@ -198,7 +197,9 @@
         u = 'image/' + id;
       }
       $('#imageError' + id).html('');
-        
+      $('#modal' + id).modal('hide');
+      $('#wait').addClass('modal-backdrop show');
+
       $.ajax({
         url: u,
         type: "POST",
@@ -206,7 +207,7 @@
         contentType: false,
         data:  new FormData(form),
         success: function(){
-          $('#modal' + id).modal('hide');
+          $('#wait').removeClass('modal-backdrop show');
           closeImage(id);
           flag = 0;
           $('#name' + id).val('');
@@ -222,6 +223,7 @@
             $('#imageError' + id).html(res.responseJSON.message);
           else if(res.status == 413)
             $('#imageError' + id).html('Image size can not be above 1 MB');
+          $('#modal' + id).modal('show');
         }
       });
     }

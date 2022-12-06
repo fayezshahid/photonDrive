@@ -14,6 +14,7 @@
     <title>PHOTON</title>
 </head>
 <body>
+    <div id="wait"></div>
     <nav class="navbar navbar-light bg-dark fixed-top mb-3">
       <div class="container-fluid">
         <a href="{{ route('home') }}" class="navbar-brand" style="color:white;">PHOTON</a>

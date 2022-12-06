@@ -377,43 +377,45 @@
     }
 
     function upload(id){
-        if(flag == 0 && id != ''){
-            $('#chooseImg' + id).html('<input type="hidden" name="hiddenToken" value="1">');
-        }
+      if(flag == 0 && id != ''){
+          $('#chooseImg' + id).html('<input type="hidden" name="hiddenToken" value="1">');
+      }
+      var form = document.getElementById('form' + id);
+      var method = 'POST';
+      var u = 'image'
+      if(id != ''){
+        u = 'image/' + id;
+      }
+      $('#imageError' + id).html('');
+      $('#modal' + id).modal('hide');
+      $('#wait').addClass('modal-backdrop show');
 
-        var form = document.getElementById('form' + id);
-        var method = 'POST';
-        var u = 'image'
-        if(id != ''){
-            u = 'image/' + id;
+      $.ajax({
+        url: u,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data:  new FormData(form),
+        success: function(){
+            $('#wait').removeClass('modal-backdrop show');
+            closeImage(id);
+            flag = 0;
+            $('#name' + id).val('');
+            if(id)
+                toastr.success('Image Edited');
+            else
+                toastr.success('Image Uploaded');
+            openFolder(album, arrange2, order2);
+        },
+        error: function(res){
+            toastr.error('Error');
+            if(res.responseJSON)
+                $('#imageError' + id).html(res.responseJSON.message);
+            else if(res.status == 413)
+                $('#imageError' + id).html('Image size can not be above 1 MB');
+            $('#modal' + id).modal('show');
         }
-        $('#imageError' + id).html('');
-
-        $.ajax({
-            url: u,
-            type: "POST",
-            processData: false,
-            contentType: false,
-            data:  new FormData(form),
-            success: function(){
-                $('#modal' + id).modal('hide');
-                closeImage(id);
-                flag = 0;
-                $('#name' + id).val('');
-                if(id)
-                    toastr.success('Image Edited');
-                else
-                    toastr.success('Image Uploaded');
-                openFolder(album, arrange2, order2);
-            },
-            error: function(res){
-                toastr.error('Error');
-                if(res.responseJSON)
-                    $('#imageError' + id).html(res.responseJSON.message);
-                else if(res.status == 413)
-                    $('#imageError' + id).html('Image size can not be above 1 MB');
-            }
-        });
+      });
     }
 
     function moveToTrash(id){

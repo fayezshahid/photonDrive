@@ -1,6 +1,7 @@
 @extends('index')
 
 @section('content')
+<div id="loader" class="w-100 h-100" style="display: none;"></div>
   <div class="d-flex justify-content-between">
     <div class="dropdown d-flex">
       <div>
@@ -228,7 +229,9 @@
         u = 'image/' + id;
       }
       $('#imageError' + id).html('');
-        
+      $('#modal' + id).modal('hide');
+      $('#wait').addClass('modal-backdrop show');
+
       $.ajax({
         url: u,
         type: "POST",
@@ -236,7 +239,7 @@
         contentType: false,
         data:  new FormData(form),
         success: function(){
-          $('#modal' + id).modal('hide');
+          $('#wait').removeClass('modal-backdrop show');
           closeImage(id);
           flag = 0;
           $('#name' + id).val('');
@@ -252,6 +255,7 @@
             $('#imageError' + id).html(res.responseJSON.message);
           else if(res.status == 413)
             $('#imageError' + id).html('Image size can not be above 1 MB');
+          $('#modal' + id).modal('show');
         }
       });
     }
