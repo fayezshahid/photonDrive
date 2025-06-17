@@ -1,66 +1,152 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Photo Management System
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Photon, a robust photo management platform built with PHP Laravel and MySQL. Features dynamic client-side interactions for favoriting, archiving, and sharing photos without page reloads, integrated with Google Drive API for secure cloud storage.
 
-## About Laravel
+## 🛠️ Technologies Used
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **PHP Laravel** - Backend framework
+- **MySQL** - Database management
+- **Eloquent ORM** - Database handling
+- **jQuery** - Client-side interactions
+- **Google Drive API** - Cloud storage integration
+- **XAMPP** - Local development environment
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Getting Started
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
 
-## Learning Laravel
+1. **Install XAMPP**
+   - Download from [https://www.apachefriends.org/](https://www.apachefriends.org/)
+   - Install and launch XAMPP Control Panel
+   - **Enable Apache and MySQL** from the control panel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Install Node.js and Composer**
+   - Download Node.js from [https://nodejs.org/](https://nodejs.org/)
+   - Download Composer from [https://getcomposer.org/](https://getcomposer.org/)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/fayezshahid/photonDrive.git
+   cd photonDrive
+   ```
 
-## Laravel Sponsors
+2. **Environment Setup**
+   ```bash
+   # Create .env file and copy content from .env.example
+   cp .env.example .env
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+3. **Database Setup**
+   - Open phpMyAdmin (http://localhost/phpmyadmin) or whatever procedure you are familiar with to create a database in MySQL
+   - Create a new database for your project
+   - Update `.env` file with your database details and Google Drive API keys:
+   
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=your_local_db_name
+   DB_USERNAME=root
+   DB_PASSWORD=
+   
+   # Google Drive API Configuration
+   GOOGLE_DRIVE_CLIENT_ID=your_google_drive_client_id
+   GOOGLE_DRIVE_CLIENT_SECRET=your_google_drive_client_secret
+   GOOGLE_DRIVE_REFRESH_TOKEN=your_google_drive_refresh_token
+   GOOGLE_DRIVE_FOLDER=your_google_drive_folder_id
+   ```
 
-### Premium Partners
+4. **Install Dependencies**
+   ```bash
+   # Install PHP dependencies
+   composer install
+   
+   # Install Node.js dependencies
+   npm install
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+5. **Laravel Setup**
+   ```bash
+   # Generate application key
+   php artisan key:generate
+   
+   # Run database migrations
+   php artisan migrate
+   
+   # Start the development server
+   php artisan serve
+   ```
 
-## Contributing
+## 🔑 Google Drive API Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+To get your Google Drive API credentials:
 
-## Code of Conduct
+1. **Create a Google Cloud Project**
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select existing one
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. **Enable Google Drive API**
+   - Navigate to "APIs & Services" > "Library"
+   - Search for "Google Drive API" and enable it
 
-## Security Vulnerabilities
+3. **Create Credentials**
+   - Go to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" > "OAuth 2.0 Client IDs"
+   - Configure consent screen if required
+   - Set application type to "Web application"
+   - Add authorized redirect URIs
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Get Refresh Token**
+   - Use Google OAuth 2.0 Playground or implement OAuth flow
+   - Generate refresh token using your client credentials
 
-## License
+5. **Update .env file**
+   - Add your client ID, client secret, refresh token, and folder ID to `.env`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Access the application**
+   - Open your browser and go to `http://localhost:8000`
+
+## 🎯 Features
+
+- **Dynamic Photo Management**: Upload, organize, and manage photos
+- **Real-time Interactions**: Favorite, archive, and share without page reloads
+- **Google Drive Integration**: Secure cloud storage for scalability
+- **Efficient Database Handling**: Eloquent ORM for optimized queries
+- **Responsive UI**: jQuery-powered smooth user experience
+
+## 📁 Project Structure
+
+```
+photonDrive/
+│
+├── app/                    # Laravel application logic
+├── database/              # Migrations and seeders
+├── public/                # Public assets
+├── resources/             # Views and frontend assets
+├── routes/                # Application routes
+├── .env.example           # Environment configuration template
+└── README.md             # Documentation
+```
+
+## 🔧 Key Functionalities
+
+- **Photo Upload & Storage**: Seamless integration with Google Drive API
+- **Dynamic Actions**: jQuery-powered favoriting, archiving, sharing
+- **Database Management**: Efficient data handling with Eloquent ORM
+- **User Management**: Secure authentication and authorization
+- **Responsive Design**: Mobile-friendly interface
+
+## 🌐 API Integration
+
+- **Google Drive API**: For secure photo storage and retrieval
+- **RESTful Architecture**: Clean API endpoints for frontend interactions
+
+## 🔮 Future Enhancements
+
+- Add photo editing capabilities
+- Implement advanced search and filtering
+- Include photo tagging and categorization
+- Add batch operations for multiple photos
+- Integrate with other cloud storage providers
